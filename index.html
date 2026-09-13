@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>××× · 个人网站五套设计方案</title>
+<meta name="description" content="基于个人简介设计并实现的 5 套不同风格、带 3D 元素与丰富动效的个人网站。">
+<meta name="theme-color" content="#0b0d10">
+<style>
+:root{
+  --bg:#0b0d10;
+  --panel:#12151a;
+  --panel-2:#171b21;
+  --line:rgba(255,255,255,.09);
+  --txt:#e8edf3;
+  --dim:#8b95a3;
+  --c1:#5cf0ff; --c2:#ff2ec4; --c3:#c8442e; --c4:#ffb094; --c5:#d4af6a;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --sans:"Optima","Helvetica Neue","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:var(--sans);
+  line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{margin:0;line-height:1.25;font-weight:600}
+p{margin:0}
+::selection{background:var(--c1);color:#08131a}
+::-webkit-scrollbar{width:9px}
+::-webkit-scrollbar-track{background:#0b0d10}
+::-webkit-scrollbar-thumb{background:#2a313b;border-radius:9px}
+
+.aurora{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+  background:
+    radial-gradient(50% 40% at 12% 8%, rgba(92,240,255,.20), transparent 62%),
+    radial-gradient(45% 38% at 88% 14%, rgba(255,46,196,.16), transparent 60%),
+    radial-gradient(50% 40% at 50% 96%, rgba(212,175,106,.16), transparent 62%)}
+.gridlines{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:70px 70px;
+  mask-image:radial-gradient(120% 80% at 50% 0%,#000 10%,transparent 80%);
+  -webkit-mask-image:radial-gradient(120% 80% at 50% 0%,#000 10%,transparent 80%)}
+
+.wrap{position:relative;z-index:5;max-width:1240px;margin:0 auto;padding:0 28px}
+
+/* ============ 头部 ============ */
+header{padding:72px 0 20px;position:relative;z-index:5}
+.kick{display:inline-flex;align-items:center;gap:12px;font-size:11.5px;letter-spacing:.32em;
+  color:var(--c1);text-transform:uppercase;margin-bottom:22px}
+.kick::before{content:"";width:30px;height:1px;background:var(--c1)}
+h1{font-size:clamp(34px,5.6vw,64px);letter-spacing:-.02em;line-height:1.12}
+h1 em{font-style:normal;background:linear-gradient(100deg,var(--c1),var(--c2) 40%,var(--c5));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{margin-top:20px;color:var(--dim);max-width:70ch;font-size:16px}
+.who{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap}
+.who span{font-size:12.5px;padding:8px 16px;border:1px solid var(--line);border-radius:999px;
+  color:var(--dim);background:rgba(255,255,255,.03)}
+.who span b{color:var(--txt);font-weight:600}
+
+/* ============ 3D 转台 ============ */
+.stage-wrap{margin-top:60px;position:relative;z-index:5;padding:20px 0 40px}
+.stage{perspective:1500px;height:430px;display:grid;place-items:center;
+  cursor:grab;touch-action:pan-y}
+.stage:active{cursor:grabbing}
+.carousel{position:relative;width:270px;height:380px;transform-style:preserve-3d;
+  transition:transform .7s var(--ease)}
+.card{position:absolute;inset:0;border-radius:22px;overflow:hidden;
+  border:1px solid var(--line);background:var(--panel);
+  box-shadow:0 40px 80px -34px rgba(0,0,0,.95);
+  transition:box-shadow .5s,border-color .5s;backface-visibility:hidden}
+.card.on{border-color:rgba(255,255,255,.4);box-shadow:0 50px 100px -34px rgba(0,0,0,1)}
+.card .pv{height:246px;position:relative;overflow:hidden;
+  display:flex;align-items:flex-end;justify-content:center}
+.card .pv .bgA{position:absolute;inset:0}
+.card .pv .nm{position:relative;z-index:2;font-size:66px;font-weight:700;letter-spacing:.02em;
+  color:rgba(255,255,255,.96);text-shadow:0 12px 34px rgba(0,0,0,.5);padding-bottom:20px}
+.card .inf{padding:16px 18px}
+.card .inf .t{font-size:15px;font-weight:700}
+.card .inf .d{font-size:12px;color:var(--dim);margin-top:4px}
+.card .inf .go{margin-top:12px;display:inline-flex;align-items:center;gap:6px;font-size:11.5px;
+  letter-spacing:.18em;color:var(--c1)}
+
+/* 各站预览渐变 */
+.g1{background:linear-gradient(160deg,#0a3a4a,#03101c 70%)}
+.g2{background:linear-gradient(160deg,#2a0a2e,#05030a 70%)}
+.g3{background:linear-gradient(160deg,#efe7d8,#d9cfbc 70%)}
+.g4{background:linear-gradient(160deg,#ffe3cd,#ffd0b0 70%)}
+.g5{background:linear-gradient(160deg,#2e2415,#0a0908 70%)}
+.g1 .nm,.g2 .nm{color:#fff}
+.g3 .nm,.g4 .nm{color:#3a3128;text-shadow:0 10px 26px rgba(120,90,60,.28)}
+.g5 .nm{color:#f2dfb2}
+
+.stage-hint{text-align:center;color:var(--dim);font-size:12px;letter-spacing:.2em;margin-top:6px}
+.stage-nav{display:flex;justify-content:center;gap:10px;margin-top:22px}
+.dot{width:34px;height:4px;border-radius:99px;background:rgba(255,255,255,.14);border:0;
+  cursor:pointer;transition:.45s var(--ease)}
+.dot.on{width:56px;background:linear-gradient(90deg,var(--c1),var(--c5))}
+
+/* ============ 列表 ============ */
+section.list{padding:40px 0 90px;position:relative;z-index:5}
+.sec-h{display:flex;align-items:baseline;gap:18px;margin-bottom:34px;flex-wrap:wrap}
+.sec-h h2{font-size:clamp(22px,3vw,32px)}
+.sec-h span{color:var(--dim);font-size:13px}
+.rows{display:grid;gap:18px}
+.row{display:grid;grid-template-columns:88px 1.25fr 1fr auto;gap:26px;align-items:center;
+  padding:26px 28px;border-radius:20px;background:var(--panel);border:1px solid var(--line);
+  transition:.5s var(--ease);position:relative;overflow:hidden}
+.row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:0;
+  transition:width .6s var(--ease);opacity:.12}
+.row:hover{transform:translateY(-5px);border-color:rgba(255,255,255,.22)}
+.row:hover::before{width:100%}
+.row.r1::before{background:linear-gradient(90deg,var(--c1),transparent)}
+.row.r2::before{background:linear-gradient(90deg,var(--c2),transparent)}
+.row.r3::before{background:linear-gradient(90deg,var(--c3),transparent)}
+.row.r4::before{background:linear-gradient(90deg,var(--c4),transparent)}
+.row.r5::before{background:linear-gradient(90deg,var(--c5),transparent)}
+.row .idx{font-size:34px;font-weight:700;color:rgba(255,255,255,.14);line-height:1;
+  font-variant-numeric:tabular-nums}
+.row .tt h3{font-size:19px}
+.row .tt .en{font-size:11.5px;letter-spacing:.22em;color:var(--dim);margin-top:5px;text-transform:uppercase}
+.row .tt p{font-size:13.5px;color:var(--dim);margin-top:10px;max-width:52ch}
+.row .tags{display:flex;flex-wrap:wrap;gap:8px}
+.row .tags span{font-size:11.5px;padding:5px 12px;border-radius:999px;
+  border:1px solid var(--line);color:var(--dim);background:rgba(255,255,255,.03)}
+.row .act{display:flex;flex-direction:column;gap:9px;align-items:flex-end}
+.open{padding:12px 24px;border-radius:999px;font-size:12.5px;font-weight:600;
+  border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.06);color:var(--txt);
+  cursor:pointer;transition:.4s var(--ease);white-space:nowrap;display:inline-block}
+.open:hover{background:#fff;color:#0b0d10;border-color:#fff;transform:translateY(-2px)}
+.row.r1 .open:hover{background:var(--c1);border-color:var(--c1);color:#08131a}
+.row.r2 .open:hover{background:var(--c2);border-color:var(--c2);color:#150015}
+.row.r3 .open:hover{background:var(--c3);border-color:var(--c3);color:#fff}
+.row.r4 .open:hover{background:var(--c4);border-color:var(--c4);color:#4a1f0d}
+.row.r5 .open:hover{background:var(--c5);border-color:var(--c5);color:#241a06}
+@media(max-width:1080px){
+  .row{grid-template-columns:64px 1fr;gap:18px}
+  .row .tags,.row .act{grid-column:2}
+  .row .act{flex-direction:row;align-items:center;margin-top:4px}
+}
+
+/* ============ 技术说明 ============ */
+section.tech{padding:0 0 100px;position:relative;z-index:5}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+@media(max-width:960px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.cards{grid-template-columns:1fr}}
+.tcard{padding:26px 24px;border-radius:18px;background:var(--panel-2);border:1px solid var(--line)}
+.tcard .ico{font-size:22px}
+.tcard h4{font-size:15px;margin:14px 0 10px}
+.tcard p{font-size:13px;color:var(--dim)}
+.tcard ul{margin:12px 0 0;padding-left:17px;font-size:12.5px;color:var(--dim)}
+.tcard li{margin-bottom:5px}
+
+footer{padding:44px 0 60px;border-top:1px solid var(--line);position:relative;z-index:5}
+footer .fi{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  font-size:12px;color:var(--dim);letter-spacing:.1em}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<div class="aurora"></div>
+<div class="gridlines"></div>
+
+<header class="wrap">
+  <span class="kick">Design Proposal · 5 Styles</span>
+  <h1>××× · <em>个人网站五套设计方案</em></h1>
+  <p class="sub">
+    基于《个人简介》PDF 内容提炼，交付 5 套风格完全不同的个人网站。
+    每一套都包含 WebGL / CSS 3D 立体元素、丰富的滚动与交互动效，以及完整可复用的组件库。
+  </p>
+  <div class="who">
+    <span><b>姓名</b> ×××</span>
+    <span><b>院校</b> ××××大学 · 水产学院</span>
+    <span><b>政治面貌</b> ××××××</span>
+    <span><b>绩点</b> ×.××</span>
+    <span><b>籍贯</b> ××××</span>
+  </div>
+</header>
+
+<!-- ================= 3D 转台 ================= -->
+<div class="stage-wrap">
+  <div class="wrap">
+    <div class="stage" id="stage">
+      <div class="carousel" id="carousel">
+        <a class="card" href="01-ocean/index.html">
+          <div class="pv g1"><div class="bgA"></div><div class="nm">深蓝</div></div>
+          <div class="inf"><div class="t">深蓝 · 水产人</div><div class="d">海洋生态 / 玻璃拟态</div>
+            <div class="go">进入站点 ↗</div></div>
+        </a>
+        <a class="card" href="02-cyber/index.html">
+          <div class="pv g2"><div class="bgA"></div><div class="nm">赛博</div></div>
+          <div class="inf"><div class="t">赛博 · 兴农</div><div class="d">霓虹终端 / HUD</div>
+            <div class="go">进入站点 ↗</div></div>
+        </a>
+        <a class="card" href="03-editorial/index.html">
+          <div class="pv g3"><div class="bgA"></div><div class="nm">素白</div></div>
+          <div class="inf"><div class="t">素白 · 手记</div><div class="d">极简编辑 / 立体纸层</div>
+            <div class="go">进入站点 ↗</div></div>
+        </a>
+        <a class="card" href="04-clay/index.html">
+          <div class="pv g4"><div class="bgA"></div><div class="nm">黏土</div></div>
+          <div class="inf"><div class="t">黏土 · 元气</div><div class="d">柔和 3D / 弹性交互</div>
+            <div class="go">进入站点 ↗</div></div>
+        </a>
+        <a class="card" href="05-luxe/index.html">
+          <div class="pv g5"><div class="bgA"></div><div class="nm">黑金</div></div>
+          <div class="inf"><div class="t">黑金 · 雅</div><div class="d">奢华暗调 / 金属流光</div>
+            <div class="go">进入站点 ↗</div></div>
+        </a>
+      </div>
+    </div>
+    <p class="stage-hint">拖拽 / 左右滑动旋转 · 点击卡片进入</p>
+    <div class="stage-nav" id="nav"></div>
+  </div>
+</div>
+
+<!-- ================= 列表 ================= -->
+<section class="list">
+  <div class="wrap">
+    <div class="sec-h"><h2>五套风格一览</h2><span>点击「进入站点」在新标签打开</span></div>
+    <div class="rows">
+      <article class="row r1">
+        <div class="idx">01</div>
+        <div class="tt">
+          <h3>深蓝 · 水产人</h3>
+          <div class="en">Ocean Depth · Aquatic Science</div>
+          <p>以专业为原点：深海渐变底色 + 水下气泡粒子、体积光柱与巡游鱼群。玻璃拟态卡片、能力环、翻面特质卡、经历时间轴与荣誉勋章墙。</p>
+        </div>
+        <div class="tags">
+          <span>Three.js 粒子/光柱</span><span>玻璃拟态</span><span>打字机</span>
+          <span>数字滚动</span><span>能力环</span><span>3D 翻面卡</span>
+        </div>
+        <div class="act"><a class="open" href="01-ocean/index.html">进入站点</a></div>
+      </article>
+
+      <article class="row r2">
+        <div class="idx">02</div>
+        <div class="tt">
+          <h3>赛博 · 兴农</h3>
+          <div class="en">Cyberpunk · Terminal HUD</div>
+          <p>把履历做成一份终端日志：无限滚动的霓虹网格地平线、旋转线框二十面体、下落数据流。启动打字、glitch 标题、Canvas 能力雷达、成就徽章与扫描线。</p>
+        </div>
+        <div class="tags">
+          <span>Three.js 网格地平线</span><span>Glitch 文字</span><span>终端打字</span>
+          <span>Canvas 雷达图</span><span>HUD 角标</span><span>跑马灯</span>
+        </div>
+        <div class="act"><a class="open" href="02-cyber/index.html">进入站点</a></div>
+      </article>
+
+      <article class="row r3">
+        <div class="idx">03</div>
+        <div class="tt">
+          <h3>素白 · 手记</h3>
+          <div class="en">Minimal Editorial · Paper &amp; Ink</div>
+          <p>杂志式留白排版：可拖拽的 3D 立体纸层、循环旋转的关键词立方体、悬停翻转的荣誉卡片。文字按行升起、滚动渐变揭示，克制而有质感。</p>
+        </div>
+        <div class="tags">
+          <span>CSS 3D 纸层</span><span>3D 旋转立方体</span><span>Three.js 飘落纸页</span>
+          <span>衬线排版</span><span>手风琴</span><span>遮罩揭示</span>
+        </div>
+        <div class="act"><a class="open" href="03-editorial/index.html">进入站点</a></div>
+      </article>
+
+      <article class="row r4">
+        <div class="idx">04</div>
+        <div class="tt">
+          <h3>黏土 · 元气</h3>
+          <div class="en">Claymorphism · Soft &amp; Playful</div>
+          <p>亲切的黏土质感：纯 CSS 立体黏土球与卡片、会呼吸的变形头像、磁吸按钮。打字弹入、标签云、气泡时间轴、旋转勋章，提交表单触发彩带庆祝。</p>
+        </div>
+        <div class="tags">
+          <span>Claymorphism</span><span>Three.js 黏土球</span><span>磁吸按钮</span>
+          <span>弹性动效</span><span>Canvas 彩带</span><span>3D 倾斜卡</span>
+        </div>
+        <div class="act"><a class="open" href="04-clay/index.html">进入站点</a></div>
+      </article>
+
+      <article class="row r5">
+        <div class="idx">05</div>
+        <div class="tt">
+          <h3>黑金 · 雅</h3>
+          <div class="en">Noir &amp; Gold · Luxe Edition</div>
+          <p>高定质感：曜石黑底 + 香槟金。光标驱动的聚光灯、金色粒子星云与旋转金环、金属流光标题、遮罩上浮的优雅排版、金箔证书卡与菱形印章。</p>
+        </div>
+        <div class="tags">
+          <span>Three.js 金尘/金环</span><span>聚光灯跟随</span><span>金属流光</span>
+          <span>3D 金环视角</span><span>证书翻转</span><span>衬线礼制排版</span>
+        </div>
+        <div class="act"><a class="open" href="05-luxe/index.html">进入站点</a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 技术说明 ================= -->
+<section class="tech">
+  <div class="wrap">
+    <div class="sec-h"><h2>交付说明</h2><span>零构建、零外部依赖，双击即可运行</span></div>
+    <div class="cards">
+      <div class="tcard">
+        <div class="ico">🧊</div>
+        <h4>3D 实现方式</h4>
+        <p>两层叠加，保证任何环境下都有立体效果：</p>
+        <ul>
+          <li>WebGL：本地 three.js（r128）负责粒子、光柱、网格、金环等空间场景</li>
+          <li>CSS 3D：perspective / preserve-3d 负责卡片翻转、纸层、立方体、金环视角</li>
+          <li>检测不到 WebGL 时自动降级，布局与动效不受影响</li>
+        </ul>
+      </div>
+      <div class="tcard">
+        <div class="ico">⚡</div>
+        <h4>动效体系</h4>
+        <p>统一使用 IntersectionObserver 驱动，滚动才播放：</p>
+        <ul>
+          <li>入场：逐字升起 / 弹入 / 遮罩揭示 / 位移淡入</li>
+          <li>滚动：进度条、导航高亮、数字滚动、进度环与进度条</li>
+          <li>交互：自定义光标、鼠标视差、3D 倾斜、磁吸、聚光灯</li>
+          <li>全部尊重 prefers-reduced-motion</li>
+        </ul>
+      </div>
+      <div class="tcard">
+        <div class="ico">🧩</div>
+        <h4>组件库（每套俱全）</h4>
+        <ul>
+          <li>吸顶导航 + 滚动高亮 + 移动端菜单</li>
+          <li>Hero、数据统计、关于、能力可视化</li>
+          <li>特质/优缺点、经历时间轴、荣誉展示</li>
+          <li>联系表单（含校验）、页脚、回到顶部、滚动进度</li>
+        </ul>
+      </div>
+      <div class="tcard">
+        <div class="ico">🚀</div>
+        <h4>部署与二次开发</h4>
+        <ul>
+          <li>纯静态文件，可直接拖到 Vercel / Netlify / 对象存储</li>
+          <li>内容全部集中在各页 HTML 中，改文字即可</li>
+          <li>配色统一走 :root 变量，改一处即可换肤</li>
+          <li>three.js 已放在 vendor/，无需联网</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap fi">
+    <span>© 2026 ××× · 个人网站设计方案</span>
+    <span>5 STYLES · WEBGL + CSS 3D · NO BUILD STEP</span>
+  </div>
+</footer>
+
+<script>
+/* ============ 3D 转台 ============ */
+(function carousel(){
+  const box = document.getElementById('carousel');
+  const stage = document.getElementById('stage');
+  const nav = document.getElementById('nav');
+  const cards = [...box.querySelectorAll('.card')];
+  const N = cards.length;
+  const R = 420;                 // 半径
+  let angle = 0, target = 0, auto = true, dragging = false, lx = 0;
+  let dots = [];
+
+  /* 生成指示点 */
+  cards.forEach((c,i)=>{
+    const b = document.createElement('button');
+    b.className = 'dot';
+    b.setAttribute('aria-label', '查看第 ' + (i+1) + ' 个方案');
+    b.addEventListener('click', ()=>{ auto = false; target = -i * (360/N); });
+    nav.appendChild(b); dots.push(b);
+  });
+
+  function layout(){
+    cards.forEach((c,i)=>{
+      const a = i * (360/N);
+      c.style.transform = `rotateY(${a}deg) translateZ(${R}px)`;
+    });
+    box.style.transform = `translateZ(-${R}px) rotateY(${angle}deg)`;
+  }
+  layout();
+
+  /* 自动旋转 */
+  let paused = false;
+  (function tick(){
+    requestAnimationFrame(tick);
+    if (auto && !dragging && !paused) target += .12;
+    angle += (target - angle) * .09;
+    box.style.transform = `translateZ(-${R}px) rotateY(${angle}deg)`;
+    const cur = Math.round(-angle / (360/N)) % N;
+    const idx = ((cur % N) + N) % N;
+    dots.forEach((d,i)=>d.classList.toggle('on', i === idx));
+    cards.forEach((c,i)=>c.classList.toggle('on', i === idx));
+  })();
+
+  /* 拖拽 */
+  function down(e){
+    dragging = true; auto = false;
+    lx = (e.touches ? e.touches[0].clientX : e.clientX);
+  }
+  function move(e){
+    if (!dragging) return;
+    const x = (e.touches ? e.touches[0].clientX : e.clientX);
+    target += (x - lx) * .34;
+    lx = x;
+    if (e.touches) e.preventDefault();
+  }
+  function up(){ dragging = false; }
+  stage.addEventListener('mousedown', down);
+  addEventListener('mousemove', move);
+  addEventListener('mouseup', up);
+  stage.addEventListener('touchstart', down, { passive:true });
+  stage.addEventListener('touchmove', move, { passive:false });
+  addEventListener('touchend', up);
+  stage.addEventListener('pointerenter', ()=>paused = true);
+  stage.addEventListener('pointerleave', ()=>paused = false);
+
+  /* 键盘 */
+  addEventListener('keydown', e=>{
+    if (e.key === 'ArrowLeft'){ auto = false; target += 360/N; }
+    if (e.key === 'ArrowRight'){ auto = false; target -= 360/N; }
+  });
+})();
+</script>
+</body>
+</html>

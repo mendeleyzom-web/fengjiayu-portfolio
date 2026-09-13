@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>××× · 元气水产人</title>
+<meta name="description" content="×××个人主页 · 黏土元气版。××××大学水产学院，元气满满的水产人。">
+<meta name="theme-color" content="#fdf3ea">
+<style>
+/* ============ 令牌 ============ */
+:root{
+  --bg:#fdf3ea;
+  --bg-2:#f8e8db;
+  --ink:#3d2f2a;
+  --ink-2:#6b5a52;
+  --gray:#a3908a;
+  --mint:#6fd6bd;
+  --mint-d:#3fae94;
+  --peach:#ffb094;
+  --peach-d:#f1805f;
+  --lav:#b3a4f5;
+  --lav-d:#8b78e0;
+  --butter:#ffd36e;
+  --butter-d:#e8ae2b;
+  --sky:#8ecdf5;
+  --sky-d:#5aa9dd;
+  --white:#fffaf5;
+  --ease:cubic-bezier(.34,1.56,.64,1);
+  --ease2:cubic-bezier(.22,1,.36,1);
+  --clay:0 14px 26px -10px rgba(150,110,90,.35),
+         inset -6px -8px 14px rgba(160,120,100,.16),
+         inset 8px 10px 18px rgba(255,255,255,.85);
+  --clay-in:inset 6px 8px 14px rgba(160,120,100,.22),
+            inset -6px -8px 14px rgba(255,255,255,.9);
+  --font:"Nunito","Quicksand","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);
+  line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{margin:0;line-height:1.25;font-weight:800}
+p{margin:0}
+::selection{background:var(--lav);color:#fff}
+::-webkit-scrollbar{width:12px}
+::-webkit-scrollbar-track{background:var(--bg-2)}
+::-webkit-scrollbar-thumb{background:var(--peach);border-radius:12px;border:3px solid var(--bg-2)}
+
+/* ============ 背景装饰 ============ */
+#gl{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity 1.5s ease}
+#gl.ready{opacity:1}
+.blob-bg{position:fixed;border-radius:50%;filter:blur(70px);opacity:.5;z-index:-1;pointer-events:none}
+.blob-bg.b1{width:460px;height:460px;background:var(--mint);top:-140px;left:-120px;
+  animation:blobFloat 18s ease-in-out infinite}
+.blob-bg.b2{width:380px;height:380px;background:var(--peach);top:38%;right:-140px;
+  animation:blobFloat 22s ease-in-out infinite reverse}
+.blob-bg.b3{width:420px;height:420px;background:var(--lav);bottom:-160px;left:22%;
+  animation:blobFloat 26s ease-in-out infinite}
+@keyframes blobFloat{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(40px,-30px) scale(1.12)}
+  66%{transform:translate(-30px,26px) scale(.94)}
+}
+#progress{position:fixed;top:14px;left:14px;height:8px;width:0;border-radius:99px;
+  background:linear-gradient(90deg,var(--mint),var(--lav),var(--peach));z-index:900;
+  box-shadow:0 3px 10px rgba(150,110,90,.3)}
+
+/* ============ 布局 ============ */
+.wrap{position:relative;z-index:4;max-width:1140px;margin:0 auto;padding:0 26px}
+section{padding:110px 0;position:relative}
+.pill-tag{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:99px;
+  background:var(--white);box-shadow:var(--clay);font-size:12.5px;font-weight:700;
+  letter-spacing:.06em;color:var(--ink-2);margin-bottom:20px}
+.pill-tag i{width:9px;height:9px;border-radius:50%;background:var(--mint);
+  box-shadow:0 0 0 4px rgba(111,214,189,.28);animation:blip 1.6s ease-in-out infinite}
+@keyframes blip{50%{transform:scale(.6);opacity:.6}}
+.h2{font-size:clamp(30px,4.8vw,52px);letter-spacing:-.01em}
+.h2 em{font-style:normal;color:var(--peach-d);position:relative;white-space:nowrap}
+.h2 em::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:10px;border-radius:99px;
+  background:rgba(255,211,110,.6);z-index:-1;transform:scaleX(0);transform-origin:left;
+  transition:transform 1s var(--ease2) .3s}
+.h2 em.in::after{transform:scaleX(1)}
+.lead{color:var(--ink-2);max-width:62ch;margin-top:18px;font-size:16.5px}
+
+/* ============ 顶栏 ============ */
+header{position:fixed;top:0;left:0;right:0;z-index:600;padding:14px 0;transition:.5s var(--ease2)}
+header.solid{padding:8px 0}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:14px;
+  background:rgba(255,250,245,.86);backdrop-filter:blur(18px);border-radius:99px;padding:10px 12px 10px 20px;
+  box-shadow:0 12px 30px -14px rgba(150,110,90,.4),inset 0 1px 0 rgba(255,255,255,.9)}
+.logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:15px}
+.logo .ball{width:34px;height:34px;border-radius:50%;position:relative;
+  background:radial-gradient(circle at 32% 28%,#fff,var(--peach) 45%,var(--peach-d));
+  box-shadow:var(--clay),0 0 0 5px rgba(255,176,148,.22)}
+.logo .ball::after{content:"";position:absolute;inset:0;border-radius:50%;
+  box-shadow:inset -4px -5px 9px rgba(160,90,60,.28)}
+.menu{display:flex;gap:4px}
+.menu a{padding:9px 16px;border-radius:99px;font-size:13.5px;font-weight:700;color:var(--ink-2);
+  transition:.35s var(--ease)}
+.menu a:hover{background:var(--white);box-shadow:var(--clay-in);color:var(--ink)}
+.menu a.on{background:var(--mint);color:#fff;box-shadow:0 8px 16px -6px rgba(63,174,148,.7),
+  inset -3px -4px 8px rgba(20,90,70,.25),inset 3px 4px 8px rgba(255,255,255,.5)}
+@media(max-width:1080px) and (min-width:901px){
+  .menu a{padding:9px 12px;font-size:13px}
+  .logo{font-size:14px}
+  .nav{padding:10px 10px 10px 16px}
+}
+.cta-mini{padding:11px 22px;border-radius:99px;font-size:13.5px;font-weight:800;color:#fff;
+  background:linear-gradient(160deg,var(--lav),var(--lav-d));border:0;cursor:pointer;
+  box-shadow:0 10px 20px -8px rgba(139,120,224,.8),inset -3px -4px 9px rgba(50,30,120,.28),
+  inset 4px 5px 10px rgba(255,255,255,.42);transition:.35s var(--ease)}
+.cta-mini:hover{transform:translateY(-3px) scale(1.04)}
+.burger{display:none;width:44px;height:44px;border-radius:50%;border:0;background:var(--white);
+  box-shadow:var(--clay);font-size:17px;cursor:pointer;color:var(--ink)}
+@media(max-width:900px){
+  .burger{display:block}
+  .cta-mini{display:none}
+  .menu{position:fixed;left:26px;right:26px;top:86px;flex-direction:column;background:var(--white);
+    border-radius:26px;padding:14px;box-shadow:0 22px 50px -18px rgba(150,110,90,.5);
+    transform:scale(.9) translateY(-14px);opacity:0;pointer-events:none;transition:.4s var(--ease)}
+  .menu.open{transform:none;opacity:1;pointer-events:auto}
+  .menu a{padding:13px 18px}
+}
+
+/* ============ HERO ============ */
+.hero{min-height:100dvh;display:flex;align-items:center;padding-top:110px}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center;width:100%}
+@media(max-width:920px){.hero-grid{grid-template-columns:1fr;gap:44px}}
+.hero h1{font-size:clamp(44px,8.4vw,86px);line-height:1.05;letter-spacing:-.02em}
+.hero h1 .w{display:inline-block;opacity:0;transform:translateY(40px) scale(.8) rotate(-6deg);
+  animation:popIn .8s var(--ease) forwards}
+@keyframes popIn{to{opacity:1;transform:none}}
+.hero h1 .hl{color:var(--peach-d)}
+.hero .sub{margin-top:20px;font-size:16.5px;color:var(--ink-2);max-width:48ch}
+.hero .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.chip{padding:9px 17px;border-radius:99px;background:var(--white);box-shadow:var(--clay);
+  font-size:13px;font-weight:700;color:var(--ink-2);transition:.4s var(--ease);cursor:default}
+.chip:hover{transform:translateY(-5px) rotate(-3deg)}
+.chip.m{background:var(--mint);color:#fff}
+.chip.l{background:var(--lav);color:#fff}
+.chip.b{background:var(--butter);color:#6b4a00}
+.chip.s{background:var(--sky);color:#0d4468}
+.hero-act{display:flex;gap:16px;margin-top:34px;flex-wrap:wrap}
+
+.btn{position:relative;display:inline-flex;align-items:center;gap:10px;padding:16px 32px;
+  border-radius:99px;border:0;font-family:var(--font);font-size:15px;font-weight:800;
+  cursor:pointer;transition:.4s var(--ease);color:#fff;
+  background:linear-gradient(160deg,var(--peach),var(--peach-d));
+  box-shadow:0 14px 26px -10px rgba(241,128,95,.85),inset -4px -6px 12px rgba(150,60,30,.3),
+  inset 5px 6px 12px rgba(255,255,255,.45)}
+.btn:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 22px 36px -12px rgba(241,128,95,.9),
+  inset -4px -6px 12px rgba(150,60,30,.3),inset 5px 6px 12px rgba(255,255,255,.45)}
+.btn:active{transform:translateY(0) scale(.97)}
+.btn.mint{background:linear-gradient(160deg,var(--mint),var(--mint-d));
+  box-shadow:0 14px 26px -10px rgba(63,174,148,.85),inset -4px -6px 12px rgba(15,90,72,.3),
+  inset 5px 6px 12px rgba(255,255,255,.45)}
+.btn.ghost{background:var(--white);color:var(--ink-2);box-shadow:var(--clay)}
+.btn.ghost:hover{color:var(--ink)}
+
+/* 黏土头像 */
+.clay-stage{perspective:1000px;display:flex;justify-content:center;position:relative}
+.clay-avatar{width:min(320px,78vw);aspect-ratio:1;border-radius:44% 56% 52% 48%/48% 46% 54% 52%;
+  background:radial-gradient(circle at 34% 28%,#fff,var(--butter) 42%,var(--peach) 78%);
+  box-shadow:0 30px 60px -22px rgba(180,120,80,.55),
+    inset -14px -18px 34px rgba(190,110,60,.35),
+    inset 16px 18px 32px rgba(255,255,255,.85);
+  display:grid;place-items:center;position:relative;
+  animation:morph 10s ease-in-out infinite, bob 5s ease-in-out infinite;
+  transform-style:preserve-3d}
+@keyframes morph{
+  0%,100%{border-radius:44% 56% 52% 48%/48% 46% 54% 52%}
+  33%{border-radius:56% 44% 46% 54%/54% 52% 48% 46%}
+  66%{border-radius:48% 52% 58% 42%/42% 50% 50% 58%}
+}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-16px) rotate(1deg)}}
+.clay-avatar .face{text-align:center;transform:translateZ(30px)}
+.clay-avatar .face .em{font-size:64px;line-height:1;
+  animation:wiggle 3.4s ease-in-out infinite}
+@keyframes wiggle{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+.clay-avatar .face .nm{margin-top:14px;font-size:22px;font-weight:800;color:#7a4a2c}
+.clay-avatar .face .rl{font-size:12.5px;font-weight:700;color:#9a6644;letter-spacing:.14em}
+.clay-avatar .sat{position:absolute;border-radius:50%;box-shadow:var(--clay)}
+.clay-avatar .sat.s1{width:56px;height:56px;background:var(--mint);top:-14px;right:-6px;
+  animation:bob 4s ease-in-out infinite}
+.clay-avatar .sat.s2{width:40px;height:40px;background:var(--lav);bottom:14px;left:-22px;
+  animation:bob 5.4s ease-in-out infinite reverse}
+.clay-avatar .sat.s3{width:28px;height:28px;background:var(--sky);bottom:-8px;right:34px;
+  animation:bob 3.4s ease-in-out infinite}
+.clay-avatar .sat.s4{width:34px;height:34px;background:var(--peach);top:44%;left:-34px;
+  animation:bob 6s ease-in-out infinite}
+
+/* ============ 数据泡泡 ============ */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+@media(max-width:820px){.stats{grid-template-columns:repeat(2,1fr)}}
+.bub{padding:30px 22px;border-radius:32px;background:var(--white);box-shadow:var(--clay);
+  text-align:center;transition:.45s var(--ease)}
+.bub:hover{transform:translateY(-10px) rotate(-2deg) scale(1.03)}
+.bub .n{font-size:clamp(32px,4.4vw,46px);font-weight:800;line-height:1;color:var(--peach-d)}
+.bub:nth-child(2) .n{color:var(--mint-d)}
+.bub:nth-child(3) .n{color:var(--lav-d)}
+.bub:nth-child(4) .n{color:var(--sky-d)}
+.bub .l{margin-top:12px;font-size:13px;font-weight:700;color:var(--gray)}
+.bub .em{font-size:24px;margin-bottom:10px}
+
+/* ============ 关于 ============ */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+@media(max-width:900px){.about{grid-template-columns:1fr}}
+.card{background:var(--white);border-radius:34px;padding:34px;box-shadow:var(--clay);position:relative}
+.card.tilt{transition:transform .3s ease-out;transform-style:preserve-3d}
+.facts{display:grid;gap:12px;margin-top:24px}
+.fact{display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:99px;
+  background:var(--bg);box-shadow:var(--clay-in);transition:.4s var(--ease)}
+.fact:hover{transform:translateX(7px)}
+.fact .e{font-size:20px}
+.fact .k{font-size:12px;font-weight:800;color:var(--gray);letter-spacing:.1em;min-width:70px}
+.fact .v{font-weight:700;font-size:14.5px}
+
+/* 技能条 */
+.skill{margin-top:22px}
+.skill .top{display:flex;justify-content:space-between;font-size:13.5px;font-weight:800;margin-bottom:10px}
+.skill .top b{color:var(--mint-d)}
+.track{height:18px;border-radius:99px;background:var(--bg);box-shadow:var(--clay-in);overflow:hidden;position:relative}
+.fill{height:100%;width:0;border-radius:99px;transition:width 1.5s var(--ease);
+  box-shadow:inset -3px -3px 8px rgba(0,0,0,.14),inset 3px 3px 8px rgba(255,255,255,.4)}
+.fill.g1{background:linear-gradient(90deg,var(--mint),var(--mint-d))}
+.fill.g2{background:linear-gradient(90deg,var(--butter),var(--peach-d))}
+.fill.g3{background:linear-gradient(90deg,var(--lav),var(--lav-d))}
+.fill.g4{background:linear-gradient(90deg,var(--sky),var(--sky-d))}
+
+/* ============ 特质卡 ============ */
+.traits{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+@media(max-width:980px){.traits{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.traits{grid-template-columns:1fr}}
+.tcard{perspective:1200px;height:270px;cursor:pointer}
+.tin{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .95s var(--ease)}
+.tcard:hover .tin,.tcard.on .tin{transform:rotateY(180deg)}
+.tf{position:absolute;inset:0;backface-visibility:hidden;border-radius:34px;padding:26px 22px;
+  background:var(--white);box-shadow:var(--clay);display:flex;flex-direction:column;
+  justify-content:space-between}
+.tf.b{transform:rotateY(180deg);background:linear-gradient(160deg,var(--lav),var(--lav-d));color:#fff}
+.tf.b .d{color:rgba(255,255,255,.9)}
+.tf .e{font-size:38px}
+.tf h4{font-size:17.5px;margin-bottom:8px}
+.tf .d{font-size:13.5px;color:var(--ink-2);line-height:1.75}
+.tf .hint{font-size:11.5px;font-weight:800;letter-spacing:.18em;color:var(--gray)}
+.tf.b .hint{color:rgba(255,255,255,.75)}
+
+/* ============ 标签云 ============ */
+.cloud{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+.cloud span{padding:12px 22px;border-radius:99px;font-weight:800;font-size:14.5px;
+  background:var(--white);box-shadow:var(--clay);transition:.45s var(--ease);cursor:default}
+.cloud span:hover{transform:translateY(-7px) rotate(3deg) scale(1.06)}
+.cloud span:nth-child(4n+1){color:var(--mint-d)}
+.cloud span:nth-child(4n+2){color:var(--peach-d)}
+.cloud span:nth-child(4n+3){color:var(--lav-d)}
+.cloud span:nth-child(4n+4){color:var(--sky-d)}
+
+/* ============ 时间轴 ============ */
+.tl{position:relative;margin-top:40px;padding-left:14px}
+.tl::before{content:"";position:absolute;left:35px;top:14px;bottom:14px;width:4px;border-radius:99px;
+  background:repeating-linear-gradient(180deg,var(--peach) 0 10px,transparent 10px 20px)}
+.entry{position:relative;padding:0 0 30px 66px}
+.entry .dot{position:absolute;left:20px;top:16px;width:34px;height:34px;border-radius:50%;
+  background:var(--white);box-shadow:var(--clay);display:grid;place-items:center;font-size:16px;
+  transition:.45s var(--ease);z-index:2}
+.entry:hover .dot{transform:scale(1.22) rotate(-8deg);background:var(--butter)}
+.entry .box{background:var(--white);border-radius:28px;padding:24px 26px;box-shadow:var(--clay);
+  transition:.45s var(--ease)}
+.entry:hover .box{transform:translateX(9px) rotate(-.6deg);box-shadow:0 22px 44px -16px rgba(150,110,90,.5)}
+.entry .hd{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:8px}
+.entry .yr{font-size:12.5px;font-weight:800;color:var(--peach-d);letter-spacing:.06em;
+  background:rgba(255,176,148,.22);padding:4px 12px;border-radius:99px}
+.entry .org{font-size:12.5px;font-weight:800;color:var(--mint-d);
+  background:rgba(111,214,189,.2);padding:4px 12px;border-radius:99px}
+.entry h4{font-size:18px}
+.entry p{font-size:14.5px;color:var(--ink-2);margin-top:8px}
+.entry .aw{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.entry .aw span{font-size:12px;font-weight:800;padding:5px 13px;border-radius:99px;
+  background:var(--bg);box-shadow:var(--clay-in);color:var(--lav-d)}
+@media(max-width:600px){.entry{padding-left:56px}.entry .dot{left:12px}}
+
+/* ============ 荣誉 ============ */
+.medals{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:38px}
+@media(max-width:880px){.medals{grid-template-columns:repeat(2,1fr)}}
+.medal{padding:30px 20px;border-radius:34px;background:var(--white);box-shadow:var(--clay);
+  text-align:center;transition:.5s var(--ease);position:relative;overflow:hidden}
+.medal:hover{transform:translateY(-10px) rotate(2deg)}
+.medal .ring{width:76px;height:76px;margin:0 auto 16px;border-radius:50%;display:grid;place-items:center;
+  font-size:32px;background:conic-gradient(from 210deg,var(--butter),#fff3cf,var(--peach),var(--butter));
+  box-shadow:0 12px 22px -8px rgba(232,174,43,.7),inset 4px 5px 10px rgba(255,255,255,.7),
+  inset -4px -5px 10px rgba(170,110,20,.25);animation:spinSlow 14s linear infinite}
+@keyframes spinSlow{to{transform:rotate(360deg)}}
+.medal h4{font-size:14.5px;line-height:1.5;margin-top:4px}
+.medal small{display:block;margin-top:8px;font-size:11px;font-weight:800;color:var(--gray);letter-spacing:.14em}
+
+/* ============ 日常 ============ */
+.daily-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:38px;align-items:start;margin-top:38px}
+@media(max-width:900px){.daily-grid{grid-template-columns:1fr;gap:32px}}
+
+/* 拍立得相框：注意旋转与悬停位移放在 .polaroid 上，外层 .rv 只管入场，
+   否则 .rv.in{transform:none} 会把旋转覆盖掉 */
+.daily-shot{perspective:1200px}
+.polaroid{margin:0;background:var(--white);border-radius:32px;padding:18px 18px 6px;
+  box-shadow:var(--clay);cursor:zoom-in;position:relative;transform:rotate(-1.6deg);
+  transition:transform .6s var(--ease),box-shadow .6s var(--ease);outline:none}
+.polaroid:hover,.polaroid:focus-visible{transform:rotate(0deg) translateY(-12px) scale(1.015);
+  box-shadow:0 34px 60px -22px rgba(150,110,90,.58),
+    inset -6px -8px 14px rgba(160,120,100,.16),
+    inset 8px 10px 18px rgba(255,255,255,.85)}
+.polaroid:focus-visible{box-shadow:0 34px 60px -22px rgba(150,110,90,.58),0 0 0 5px rgba(255,176,148,.62)}
+.polaroid .ph{position:relative;border-radius:24px;overflow:hidden;background:var(--bg-2);
+  box-shadow:var(--clay-in);aspect-ratio:4/3}
+.polaroid .ph img{width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .85s var(--ease)}
+.polaroid:hover .ph img,.polaroid:focus-visible .ph img{transform:scale(1.07)}
+.polaroid .zoom{position:absolute;right:12px;bottom:12px;padding:8px 15px;border-radius:99px;
+  background:rgba(255,250,245,.95);box-shadow:0 8px 18px -8px rgba(80,50,35,.6);
+  font-size:12px;font-weight:800;color:var(--ink-2);
+  opacity:0;transform:translateY(8px);transition:.45s var(--ease);pointer-events:none}
+.polaroid:hover .zoom,.polaroid:focus-visible .zoom{opacity:1;transform:none}
+.polaroid figcaption{display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:18px 8px 14px}
+.polaroid .cap{font-size:18px;font-weight:800;line-height:1.4}
+.polaroid .meta{margin-top:5px;font-size:11px;font-weight:800;color:var(--gray);letter-spacing:.16em}
+.polaroid .stamp{width:52px;height:52px;flex:none;border-radius:50%;display:grid;place-items:center;
+  font-size:22px;background:radial-gradient(circle at 34% 28%,#fff,var(--butter) 46%,var(--peach));
+  box-shadow:var(--clay),0 0 0 5px rgba(255,211,110,.26);
+  animation:bob 5.5s ease-in-out infinite}
+.daily-side{display:grid;gap:22px;align-content:start}
+
+/* 大图查看 */
+#lightbox{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:34px;
+  background:rgba(61,47,42,.66);backdrop-filter:blur(12px);
+  opacity:0;pointer-events:none;transition:.4s var(--ease2)}
+#lightbox.open{opacity:1;pointer-events:auto}
+#lightbox .lbin{display:flex;flex-direction:column;align-items:center;margin:0;max-width:100%}
+#lightbox img{max-width:min(1020px,92vw);max-height:78vh;border-radius:28px;display:block;
+  box-shadow:0 40px 80px -26px rgba(0,0,0,.7),0 0 0 12px rgba(255,250,245,.96);
+  transform:scale(.9);transition:.5s var(--ease)}
+#lightbox.open img{transform:none}
+#lightbox .cap2{margin-top:20px;text-align:center;font-size:14px;font-weight:800;color:#fff;
+  letter-spacing:.04em;opacity:.92}
+#lightbox .x{position:absolute;top:24px;right:24px;width:56px;height:56px;border-radius:50%;border:0;
+  background:var(--white);box-shadow:var(--clay);color:var(--ink);font-size:19px;cursor:pointer;
+  transition:.4s var(--ease)}
+#lightbox .x:hover{transform:rotate(90deg) scale(1.08)}
+
+/* ============ 引语 ============ */
+.quote{text-align:center;padding:70px 40px;border-radius:44px;background:var(--white);
+  box-shadow:var(--clay);position:relative;overflow:hidden}
+.quote::before{content:"";position:absolute;width:200px;height:200px;border-radius:50%;
+  background:var(--mint);opacity:.28;top:-80px;left:-60px;filter:blur(30px)}
+.quote::after{content:"";position:absolute;width:200px;height:200px;border-radius:50%;
+  background:var(--lav);opacity:.28;bottom:-90px;right:-50px;filter:blur(30px)}
+.quote .q{position:relative;font-size:clamp(24px,4.6vw,44px);font-weight:800;line-height:1.45}
+.quote .q em{font-style:normal;color:var(--peach-d)}
+.quote .src{position:relative;margin-top:20px;font-size:13px;font-weight:800;color:var(--gray);letter-spacing:.2em}
+
+/* ============ 联系 ============ */
+.ct{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:start}
+@media(max-width:900px){.ct{grid-template-columns:1fr}}
+.frm{display:grid;gap:18px}
+.fld{position:relative}
+.fld input,.fld textarea{width:100%;border:0;border-radius:22px;background:var(--bg);
+  box-shadow:var(--clay-in);font-family:var(--font);font-size:15px;font-weight:600;color:var(--ink);
+  padding:18px 22px;outline:none;transition:.35s}
+.fld textarea{min-height:130px;resize:vertical}
+.fld input:focus,.fld textarea:focus{box-shadow:var(--clay-in),0 0 0 4px rgba(255,176,148,.55)}
+.fld label{position:absolute;left:22px;top:18px;font-size:15px;font-weight:700;color:var(--gray);
+  pointer-events:none;transition:.3s var(--ease);background:transparent;padding:0 6px}
+.fld input:focus+label,.fld textarea:focus+label,
+.fld input:not(:placeholder-shown)+label,.fld textarea:not(:placeholder-shown)+label{
+  top:-10px;left:16px;font-size:11.5px;color:var(--peach-d);background:var(--bg);border-radius:99px}
+.out{font-size:13.5px;font-weight:800;color:var(--mint-d);min-height:20px}
+#confetti{position:fixed;inset:0;z-index:800;pointer-events:none}
+
+/* ============ 页脚 ============ */
+footer{padding:50px 0 40px;position:relative;z-index:4}
+footer .fi{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  font-size:13px;font-weight:700;color:var(--gray);
+  background:var(--white);border-radius:99px;padding:20px 30px;box-shadow:var(--clay)}
+
+/* ============ 回到顶部 ============ */
+#up{position:fixed;right:24px;bottom:24px;z-index:500;width:54px;height:54px;border-radius:50%;
+  border:0;background:var(--white);box-shadow:var(--clay);color:var(--peach-d);font-size:19px;
+  cursor:pointer;opacity:0;pointer-events:none;transition:.45s var(--ease)}
+#up.show{opacity:1;pointer-events:auto}
+#up:hover{transform:translateY(-6px) scale(1.08)}
+
+/* ============ 揭示 ============ */
+.rv{opacity:0;transform:translateY(50px) scale(.94);
+  transition:opacity .9s var(--ease2),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.09s}.rv.d2{transition-delay:.18s}.rv.d3{transition-delay:.27s}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition-duration:.01ms!important}
+  .rv{opacity:1;transform:none}
+  .hero h1 .w{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="blob-bg b1"></div>
+<div class="blob-bg b2"></div>
+<div class="blob-bg b3"></div>
+<canvas id="gl"></canvas>
+<div id="progress"></div>
+<canvas id="confetti"></canvas>
+
+<header id="hdr">
+  <div class="wrap">
+    <div class="nav">
+      <a class="logo" href="#top"><span class="ball"></span>××× · 元气水产人</a>
+      <nav class="menu" id="menu">
+        <a href="#about">关于</a>
+        <a href="#traits">我的模样</a>
+        <a href="#journey">成长轨迹</a>
+        <a href="#honor">小勋章</a>
+        <a href="#daily">日常</a>
+        <a href="#contact">打个招呼</a>
+      </nav>
+      <button class="cta-mini" id="jump">来聊聊 →</button>
+      <button class="burger" id="burger" aria-label="菜单">☰</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="pill-tag"><i></i>××××大学 · 水产学院</span>
+      <h1 id="title"></h1>
+      <p class="sub">
+        嗨！我是×××，一个把课本带到塘边、把好奇心带到××山区的水产人。
+        喜欢琢磨鱼，也喜欢琢磨人 —— 团队里的"破冰剂"，池塘边的"数据控"。
+      </p>
+      <div class="chips">
+        <span class="chip m">🐟 水产养殖</span>
+        <span class="chip b">🎤 主持团负责人</span>
+        <span class="chip l">📚 支教队员</span>
+        <span class="chip s">🌾 稻鸭虾种养</span>
+        <span class="chip">🇨🇳 ××××××</span>
+      </div>
+      <div class="hero-act">
+        <button class="btn" id="sayHi">👋 跟我打个招呼</button>
+        <a class="btn ghost" href="#journey">看看我的经历</a>
+      </div>
+    </div>
+    <div class="clay-stage">
+      <div class="clay-avatar" id="avatar">
+        <span class="sat s1"></span><span class="sat s2"></span>
+        <span class="sat s3"></span><span class="sat s4"></span>
+        <div class="face">
+          <div class="em">🐟</div>
+          <div class="nm">×××</div>
+          <div class="rl">××× ×××</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 数据 ================= -->
+<section style="padding-top:20px">
+  <div class="wrap">
+    <div class="stats">
+      <div class="bub rv"><div class="em">📅</div><div class="n" data-count="20" data-suffix="+">0</div><div class="l">支教天数</div></div>
+      <div class="bub rv d1"><div class="em">🧒</div><div class="n" data-count="100" data-suffix="+">0</div><div class="l">服务学生</div></div>
+      <div class="bub rv d2"><div class="em">🚶</div><div class="n" data-count="30" data-suffix="+">0</div><div class="l">走访农户</div></div>
+      <div class="bub rv d3"><div class="em">📗</div><div class="n">×.××</div><div class="l">本科绩点</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 关于 ================= -->
+<section id="about">
+  <div class="wrap">
+    <span class="pill-tag rv"><i></i>关于我</span>
+    <h2 class="h2 rv">一个把日子过得<em>很"水"</em>的人</h2>
+    <div class="about" style="margin-top:40px">
+      <div class="card tilt rv" id="aboutCard">
+        <p style="font-size:16.5px;color:var(--ink-2)">
+          我是×××，××人，××××大学水产学院水产类专业在读。四年里，
+          我做过班级的组织与宣传委员，做过学院主持团的负责人，也做过实践团的队长。
+          ××山区的讲台、××田埂的农户、××渔业的产卵池 —— 这些地方教给我的，
+          比课本更立体。
+        </p>
+        <div class="facts">
+          <div class="fact"><span class="e">📍</span><span class="k">籍贯</span><span class="v">×× · ××</span></div>
+          <div class="fact"><span class="e">🇨🇳</span><span class="k">政治面貌</span><span class="v">××××××</span></div>
+          <div class="fact"><span class="e">🏫</span><span class="k">院校</span><span class="v">××××大学 · 水产学院</span></div>
+          <div class="fact"><span class="e">📗</span><span class="k">绩点</span><span class="v">×.××</span></div>
+          <div class="fact"><span class="e">💛</span><span class="k">座右铭</span><span class="v">各美其美，美美与共</span></div>
+        </div>
+      </div>
+      <div class="card rv d2">
+        <span class="pill-tag" style="margin-bottom:18px"><i></i>能力自评</span>
+        <div class="skill" data-v="94"><div class="top"><span>团队协作 🤝</span><b>94</b></div><div class="track"><div class="fill g1"></div></div></div>
+        <div class="skill" data-v="90"><div class="top"><span>沟通表达 🎤</span><b>90</b></div><div class="track"><div class="fill g2"></div></div></div>
+        <div class="skill" data-v="86"><div class="top"><span>实践执行 🌱</span><b>86</b></div><div class="track"><div class="fill g1"></div></div></div>
+        <div class="skill" data-v="82"><div class="top"><span>共情倾听 💛</span><b>82</b></div><div class="track"><div class="fill g3"></div></div></div>
+        <div class="skill" data-v="78"><div class="top"><span>数据分析 📊</span><b>78</b></div><div class="track"><div class="fill g4"></div></div></div>
+        <div class="skill" data-v="72"><div class="top"><span>科研素养 🔬</span><b>72</b></div><div class="track"><div class="fill g3"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 特质 ================= -->
+<section id="traits">
+  <div class="wrap">
+    <span class="pill-tag rv"><i></i>我的模样</span>
+    <h2 class="h2 rv">正面是我，<em>反面也是我</em></h2>
+    <p class="lead rv">点点卡片翻个面，你会看到我给自己写的"使用说明"和"待改进清单"。</p>
+    <div class="traits" style="margin-top:36px">
+      <div class="tcard rv" tabindex="0">
+        <div class="tin">
+          <div class="tf">
+            <div class="e">⚓</div>
+            <div><h4>责任心强</h4><div class="d">对工作和任务有着很强的主人翁意识，积极主动，力求尽善尽美。</div></div>
+            <div class="hint">点我翻面 →</div>
+          </div>
+          <div class="tf b">
+            <div class="e">⏳</div>
+            <div><h4>正在练习</h4><div class="d">有"说干就干"的激情，但耐心与毅力还得再长长，别只有三分钟热度。</div></div>
+            <div class="hint">← 返回</div>
+          </div>
+        </div>
+      </div>
+      <div class="tcard rv d1" tabindex="0">
+        <div class="tin">
+          <div class="tf">
+            <div class="e">🪨</div>
+            <div><h4>吃苦耐劳</h4><div class="d">能克服恶劣的生活工作环境，盯着目标前进，愿意抢做多做。</div></div>
+            <div class="hint">点我翻面 →</div>
+          </div>
+          <div class="tf b">
+            <div class="e">🔍</div>
+            <div><h4>正在练习</h4><div class="d">有时太抠细节，反而拖拉、舍本逐末。要学着先抓主干再雕花。</div></div>
+            <div class="hint">← 返回</div>
+          </div>
+        </div>
+      </div>
+      <div class="tcard rv d2" tabindex="0">
+        <div class="tin">
+          <div class="tf">
+            <div class="e">🤝</div>
+            <div><h4>协作能力好</h4><div class="d">愿补团队短板，坚信"各美其美，美美与共"，乐于给队友舞台。</div></div>
+            <div class="hint">点我翻面 →</div>
+          </div>
+          <div class="tf b">
+            <div class="e">⚖️</div>
+            <div><h4>正在练习</h4><div class="d">太照顾各方情绪，容易"和稀泥"。该拍板的时候要敢拍板。</div></div>
+            <div class="hint">← 返回</div>
+          </div>
+        </div>
+      </div>
+      <div class="tcard rv d3" tabindex="0">
+        <div class="tin">
+          <div class="tf">
+            <div class="e">🔥</div>
+            <div><h4>团队破冰剂</h4><div class="d">性格开朗热情，擅长活跃气氛；共情强，能化解团队矛盾。</div></div>
+            <div class="hint">点我翻面 →</div>
+          </div>
+          <div class="tf b">
+            <div class="e">📚</div>
+            <div><h4>正在补强</h4><div class="d">学生工作与科研经历还相对贫乏，正在用更多项目把这块拼图补齐。</div></div>
+            <div class="hint">← 返回</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cloud rv d2">
+      <span># 团队粘合剂</span><span># 破冰剂</span><span># 主持人</span><span># 塘口常驻</span>
+      <span># 共情力</span><span># 走访狂人</span><span># 繁育新手</span><span># ××××</span>
+      <span># 各美其美</span><span># 爱笑</span><span># 扛得住</span><span># 愿意钻研</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 时间轴 ================= -->
+<section id="journey">
+  <div class="wrap">
+    <span class="pill-tag rv"><i></i>成长轨迹</span>
+    <h2 class="h2 rv">一步一个<em>小脚印</em></h2>
+    <div class="tl">
+      <article class="entry rv">
+        <span class="dot">📣</span>
+        <div class="box">
+          <div class="hd"><span class="yr">2022.09 — 2024.02</span><span class="org">水产类××××班</span></div>
+          <h4>组织与宣传委员</h4>
+          <p>协助开展系列团日活动，向同学们宣传党团新思想和时政热点。</p>
+        </div>
+      </article>
+      <article class="entry rv">
+        <span class="dot">🎤</span>
+        <div class="box">
+          <div class="hd"><span class="yr">2022.10 — 2024.10</span><span class="org">水产学院主持团</span></div>
+          <h4>成员 / 负责人</h4>
+          <p>出色完成学校、学院任务，主持第四届全国××××××××论坛文艺晚会、全国首届大学生××××大赛校赛决赛等。</p>
+          <div class="aw"><span>全国性论坛晚会</span><span>校赛决赛</span></div>
+        </div>
+      </article>
+      <article class="entry rv">
+        <span class="dot">📚</span>
+        <div class="box">
+          <div class="hd"><span class="yr">2023.04 — 2023.08</span><span class="org">××支教团</span></div>
+          <h4>队员 · ××××××××小学</h4>
+          <p>赴××省××市××土家族自治县××小学开展支教 20 余日，服务学生 100 余人。</p>
+          <div class="aw"><span>××省优秀团队</span><span>××省典型案例</span><span>校志愿服务项目大赛银奖</span></div>
+        </div>
+      </article>
+      <article class="entry rv">
+        <span class="dot">🌾</span>
+        <div class="box">
+          <div class="hd"><span class="yr">2024.07</span><span class="org">赴××××社会实践团</span></div>
+          <h4>队长 · ××××</h4>
+          <p>参与××省"××××"项目研究，实地考察××××××××公司及"稻鸭虾综合种养"核心模式，牵头走访××村等农户 30+，分析技术路径与经济效益。</p>
+          <div class="aw"><span>优秀新媒体作品三等奖</span><span>院级优秀实践团队</span></div>
+        </div>
+      </article>
+      <article class="entry rv">
+        <span class="dot">🐟</span>
+        <div class="box">
+          <div class="hd"><span class="yr">2024.08</span><span class="org">××××研习营</span></div>
+          <h4>营员 · ××××</h4>
+          <p>深度调研××××生鱼全产业链运作模式，从分销渠道建设、产品矩阵设计及品牌价值提升三大维度完成并展示课题报告。</p>
+          <div class="aw"><span>课题报告优秀奖</span></div>
+        </div>
+      </article>
+      <article class="entry rv">
+        <span class="dot">🔬</span>
+        <div class="box">
+          <div class="hd"><span class="yr">2025.04 — 2025.05</span><span class="org">××市××渔业</span></div>
+          <h4>队长 · 翘嘴鳜全流程繁育</h4>
+          <p>完成翘嘴鳜全流程繁育工作，协助"×× 1 号"鳜良种推广。</p>
+          <div class="aw"><span>××市农科院书面表彰</span><span>综合教学实习二等奖</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 引语 ================= -->
+<section style="padding:0">
+  <div class="wrap">
+    <div class="quote rv">
+      <div class="q">各美其美，<em>美美与共</em> 💛</div>
+      <div class="src">MY TEAM CREED</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 荣誉 ================= -->
+<section id="honor">
+  <div class="wrap">
+    <span class="pill-tag rv"><i></i>小勋章</span>
+    <h2 class="h2 rv">努力过就会<em>发光</em> ✨</h2>
+    <div class="medals">
+      <div class="medal rv"><div class="ring">🏅</div><h4>××奖学金</h4><small>SCHOLARSHIP</small></div>
+      <div class="medal rv d1"><div class="ring">💚</div><h4>德育单项奖<br>（志愿公益奖）</h4><small>VOLUNTEER</small></div>
+      <div class="medal rv d2"><div class="ring">🔬</div><h4>动物生理学<br>实验技能大赛三等奖</h4><small>SKILL</small></div>
+      <div class="medal rv d3"><div class="ring">🎨</div><h4>渔文化节<br>文创设计大赛一等奖</h4><small>DESIGN</small></div>
+    </div>
+
+    <div class="about" style="margin-top:34px">
+      <div class="card rv">
+        <span class="pill-tag" style="margin-bottom:16px"><i></i>思想品德</span>
+        <h4 style="font-size:18px;margin-bottom:12px">旗帜鲜明，立场坚定 🇨🇳</h4>
+        <p style="font-size:14.5px;color:var(--ink-2)">
+          坚决拥护中国共产党的领导，拥护党的路线、方针、政策，认同国家法律法规，政治立场坚定，
+          无任何不当政治言论和行为。积极学习党的理论知识，主动关注时政要闻。在×××中积极参加
+          ×××活动、××××，按时缴纳××，获评<b style="color:var(--peach-d)">积分表彰二等奖</b>。
+        </p>
+      </div>
+      <div class="card rv d2">
+        <span class="pill-tag" style="margin-bottom:16px"><i></i>日常作风</span>
+        <h4 style="font-size:18px;margin-bottom:12px">守住规矩，也守住温度 🌿</h4>
+        <p style="font-size:14.5px;color:var(--ink-2)">
+          严格遵守国家法律、法规及学校各项规章制度，无任何违法违纪行为；尊敬师长，团结同学，
+          诚实守信，作风正派，生活严谨，勤俭节约，无不良嗜好，在校期间无矛盾纠纷、无不良人际交往。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 日常 ================= -->
+<section id="daily">
+  <div class="wrap">
+    <span class="pill-tag rv"><i></i>日常碎片</span>
+    <h2 class="h2 rv">塘口之外，日子也<em>热气腾腾</em></h2>
+    <p class="lead rv">
+      除了讲台、实验室和田埂，我也有很"人间"的一面。随手拍下的瞬间都放在这里 ——
+      第一张，是来××的第一顿自助。
+    </p>
+
+    <div class="daily-grid">
+      <!-- 拍立得相框：以后新增日常，复制这一整块 .rv.daily-shot 即可（改 img 的 src / alt 与文案） -->
+      <div class="rv daily-shot">
+        <figure class="polaroid" tabindex="0" role="button"
+                aria-label="点开查看大图：来××的第一顿自助">
+          <div class="ph">
+            <img src="assets/daily/wuxi-buffet.jpg"
+                 alt="餐桌上的双拼锅底火锅，红汤与金汤各占一半，旁边摆着麻酱与辣椒油两碗蘸料"
+                 width="1706" height="1279" loading="lazy" decoding="async">
+            <span class="zoom">🔍 点我看大图</span>
+          </div>
+          <figcaption>
+            <div>
+              <div class="cap">来××的第一顿自助</div>
+              <div class="meta">WUXI · FIRST MEAL</div>
+            </div>
+            <div class="stamp" aria-hidden="true">🍲</div>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="daily-side">
+        <div class="card rv d1">
+          <span class="pill-tag" style="margin-bottom:16px"><i></i>这一顿</span>
+          <h4 style="font-size:18px;margin-bottom:12px">鸳鸯锅、麻酱，和一整盘和牛 🍲</h4>
+          <p style="font-size:14.5px;color:var(--ink-2)">
+            红汤那边滚着辣椒，金汤那边留着煮菜；麻酱和辣椒油各调了一碗，手边还放着一瓶 NFC 苹果汁。
+            桌上餐垫写着"和牛在 0℃～4℃ 缓化约 12 小时，更好的'呼吸'带来更好的品质"——
+            连吃个自助都在被科普，也算很水产人了。
+          </p>
+          <div class="cloud" style="margin-top:20px">
+            <span># ××</span><span># 第一顿</span><span># 鸳鸯锅</span>
+            <span># 麻酱自由</span><span># 和牛</span><span># 一个人也要好好吃饭</span>
+          </div>
+        </div>
+
+        <div class="card rv d2">
+          <span class="pill-tag" style="margin-bottom:16px"><i></i>日常清单</span>
+          <div class="facts" style="margin-top:0">
+            <div class="fact"><span class="e">🍲</span><span class="k">探店</span><span class="v">来××的第一顿自助</span></div>
+            <div class="fact"><span class="e">🐟</span><span class="k">塘口</span><span class="v">水边的日子，随走随拍</span></div>
+            <div class="fact"><span class="e">📷</span><span class="k">更新</span><span class="v">持续添加中 ……</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rv d2" style="margin-top:30px">
+      <span class="pill-tag" style="margin-bottom:0"><i></i>更多日常正在路上 · 塘口 / 校园 / 吃吃喝喝</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 联系 ================= -->
+<section id="contact">
+  <div class="wrap">
+    <span class="pill-tag rv"><i></i>打个招呼</span>
+    <h2 class="h2 rv">给我<em>留句话</em>吧 💬</h2>
+    <div class="ct" style="margin-top:40px">
+      <div class="card rv">
+        <div class="facts" style="margin-top:0">
+          <div class="fact"><span class="e">🏫</span><span class="k">学校</span><span class="v">××××大学 · 水产学院</span></div>
+          <div class="fact"><span class="e">📍</span><span class="k">来自</span><span class="v">×× · ××</span></div>
+          <div class="fact"><span class="e">🎓</span><span class="k">状态</span><span class="v">在读本科生 · ××××××</span></div>
+          <div class="fact"><span class="e">🐟</span><span class="k">方向</span><span class="v">水产养殖 / 稻田种养 / 繁育</span></div>
+        </div>
+      </div>
+      <form class="card frm rv d2" id="frm" novalidate>
+        <div class="fld"><input id="n" type="text" placeholder=" " required><label for="n">你的名字</label></div>
+        <div class="fld"><input id="e" type="email" placeholder=" " required><label for="e">邮箱</label></div>
+        <div class="fld"><textarea id="m" placeholder=" " required></textarea><label for="m">想和我说的话</label></div>
+        <button class="btn mint" type="submit" style="justify-content:center">🚀 发送</button>
+        <p class="out" id="out" role="status"></p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fi">
+      <span>© 2026 ××× · 元气水产人</span>
+      <span>CLAYMORPHISM EDITION 🐟</span>
+    </div>
+  </div>
+</footer>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="查看大图">
+  <button class="x" id="lbX" aria-label="关闭大图">✕</button>
+  <figure class="lbin">
+    <img id="lbImg" alt="">
+    <figcaption class="cap2" id="lbCap"></figcaption>
+  </figure>
+</div>
+
+<button id="up" aria-label="回到顶部">↑</button>
+
+<script src="vendor/three.min.js"></script>
+<script>
+const $  = (s,c=document)=>c.querySelector(s);
+const $$ = (s,c=document)=>[...c.querySelectorAll(s)];
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* =========================================================
+   1. WebGL：漂浮的黏土球（柔和光照，看起来像橡皮泥）
+   ========================================================= */
+(function clayGL(){
+  const canvas = $('#gl');
+  if (!window.THREE || !canvas) return;
+  let renderer;
+  try{ renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true}); }catch(e){ return; }
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setSize(innerWidth, innerHeight, false);
+  renderer.setClearColor(0x000000, 0);
+  canvas.classList.add('ready');
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(46, innerWidth/innerHeight, .1, 200);
+  camera.position.z = 20;
+
+  scene.add(new THREE.AmbientLight(0xfff2e6, 1.05));
+  const l1 = new THREE.DirectionalLight(0xffffff, .85); l1.position.set(7, 11, 12); scene.add(l1);
+  const l2 = new THREE.DirectionalLight(0x9be3cf, .5);  l2.position.set(-9, -5, 7);  scene.add(l2);
+  const l3 = new THREE.DirectionalLight(0xffc0a3, .45); l3.position.set(2, -9, -5); scene.add(l3);
+
+  const palette = [0x6fd6bd, 0xffb094, 0xb3a4f5, 0xffd36e, 0x8ecdf5, 0xfffaf5];
+  const N = innerWidth < 760 ? 9 : 16;
+  const balls = [];
+  for (let i=0;i<N;i++){
+    const r = .9 + Math.random()*2.1;
+    const geo = new THREE.SphereGeometry(r, 26, 20);
+    const mat = new THREE.MeshStandardMaterial({
+      color: palette[i % palette.length], roughness:.72, metalness:.02,
+      transparent:true, opacity:.62
+    });
+    const m = new THREE.Mesh(geo, mat);
+    m.position.set(
+      (Math.random()-.5)*42,
+      (Math.random()-.5)*34,
+      (Math.random()-.5)*28 - 8
+    );
+    m.userData = {
+      base:m.position.y,
+      amp: 1 + Math.random()*2.4,
+      sp: .35 + Math.random()*.6,
+      ph: Math.random()*Math.PI*2,
+      rx: (Math.random()-.5)*.12
+    };
+    balls.push(m); scene.add(m);
+  }
+
+  const target={x:0,y:0}, cur={x:0,y:0};
+  addEventListener('pointermove', e=>{
+    target.x=(e.clientX/innerWidth-.5)*2;
+    target.y=(e.clientY/innerHeight-.5)*2;
+  },{passive:true});
+  let sy=0; addEventListener('scroll',()=>{sy=window.scrollY;},{passive:true});
+
+  const clock = new THREE.Clock();
+  let hidden=false;
+  document.addEventListener('visibilitychange',()=>{hidden=document.hidden;});
+  (function loop(){
+    requestAnimationFrame(loop);
+    if (hidden) return;
+    const t = clock.getElapsedTime();
+    cur.x += (target.x-cur.x)*.05;
+    cur.y += (target.y-cur.y)*.05;
+    camera.position.x = cur.x*3;
+    camera.position.y = -cur.y*2 + sy*.0016;
+    camera.lookAt(0,0,0);
+
+    balls.forEach(b=>{
+      const d=b.userData;
+      b.position.y = d.base + Math.sin(t*d.sp + d.ph)*d.amp;
+      b.position.x += Math.sin(t*.35 + d.ph)*.006;
+      b.rotation.x += d.rx*.06; b.rotation.y += d.rx*.05;
+    });
+    renderer.render(scene, camera);
+  })();
+
+  addEventListener('resize', ()=>{
+    camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight, false);
+  });
+})();
+
+/* =========================================================
+   2. 标题逐字弹入
+   ========================================================= */
+(function title(){
+  const el = $('#title'); if(!el) return;
+  const words = ['嗨','，','我','是','×','×','×'];
+  el.innerHTML = words.map((w,i)=>
+    `<span class="w" style="animation-delay:${.15+i*.08}s">${
+      w==='×' ? `<span class="hl">${w}</span>` : w
+    }</span>`
+  ).join('');
+})();
+
+/* =========================================================
+   3. 进度 / 顶栏 / 回顶
+   ========================================================= */
+(function chrome(){
+  const hdr=$('#hdr'), bar=$('#progress'), up=$('#up');
+  const links=$$('.menu a');
+  const secs=links.map(a=>$(a.getAttribute('href'))).filter(Boolean);
+  function onScroll(){
+    const y=scrollY, h=document.documentElement.scrollHeight-innerHeight;
+    bar.style.width=(h>0?(y/h)*100:0)+'%';
+    hdr.classList.toggle('solid', y>40);
+    up.classList.toggle('show', y>720);
+    let c=secs[0];
+    secs.forEach(s=>{ if(s.offsetTop-150<=y) c=s; });
+    links.forEach(a=>a.classList.toggle('on', a.getAttribute('href')==='#'+(c&&c.id)));
+  }
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  up.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
+  const bg=$('#burger'), menu=$('#menu');
+  bg.addEventListener('click',()=>menu.classList.toggle('open'));
+  menu.addEventListener('click',e=>{ if(e.target.tagName==='A') menu.classList.remove('open'); });
+  $('#jump').addEventListener('click',()=>$('#contact').scrollIntoView({behavior:'smooth'}));
+})();
+
+/* =========================================================
+   4. 揭示 / 计数 / 技能条
+   ========================================================= */
+(function anim(){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:.14,rootMargin:'0px 0px -6% 0px'});
+  $$('.rv').forEach(el=>io.observe(el));
+
+  const eio=new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ $('em',e.target)?.classList.add('in'); eio.unobserve(e.target);} });
+  },{threshold:.4});
+  $$('.h2').forEach(el=>eio.observe(el));
+
+  const cio=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(!e.isIntersecting) return;
+      const el=e.target; cio.unobserve(el);
+      const to=parseFloat(el.dataset.count), dec=parseInt(el.dataset.decimal||'0',10);
+      const sfx=el.dataset.suffix||''; const t0=performance.now();
+      (function s(now){
+        const p=Math.min((now-t0)/1500,1), k=1-Math.pow(1-p,3);
+        el.textContent=(to*k).toFixed(dec)+sfx;
+        if(p<1) requestAnimationFrame(s);
+      })(t0);
+    });
+  },{threshold:.5});
+  $$('[data-count]').forEach(el=>cio.observe(el));
+
+  const sio=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(!e.isIntersecting) return;
+      $$('.skill', e.target).forEach((s,i)=>{
+        setTimeout(()=>{ $('.fill',s).style.width = s.dataset.v+'%'; }, i*130);
+      });
+      sio.unobserve(e.target);
+    });
+  },{threshold:.3});
+  $$('.card').forEach(el=>{ if($('.skill',el)) sio.observe(el); });
+})();
+
+/* =========================================================
+   5. 翻转卡
+   ========================================================= */
+$$('.tcard').forEach(c=>{
+  c.addEventListener('click',()=>c.classList.toggle('on'));
+  c.addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===' '){ e.preventDefault(); c.classList.toggle('on'); }
+  });
+});
+
+/* =========================================================
+   6. 3D 倾斜卡
+   ========================================================= */
+(function tilt(){
+  const card = $('#aboutCard'); if(!card) return;
+  const stage = card.parentElement;
+  function move(e){
+    const r = card.getBoundingClientRect();
+    const px = (e.clientX - r.left)/r.width - .5;
+    const py = (e.clientY - r.top)/r.height - .5;
+    card.style.transform = `perspective(900px) rotateY(${px*9}deg) rotateX(${-py*9}deg) translateZ(6px)`;
+  }
+  card.addEventListener('pointermove', move);
+  card.addEventListener('pointerleave', ()=>{ card.style.transform=''; });
+})();
+
+/* =========================================================
+   7. 磁吸按钮
+   ========================================================= */
+$$('.btn, .cta-mini').forEach(b=>{
+  b.addEventListener('pointermove', e=>{
+    const r=b.getBoundingClientRect();
+    const dx=(e.clientX-(r.left+r.width/2))/r.width;
+    const dy=(e.clientY-(r.top+r.height/2))/r.height;
+    b.style.transform = `translate(${dx*7}px, ${dy*7}px) scale(1.04)`;
+  });
+  b.addEventListener('pointerleave', ()=>{ b.style.transform=''; });
+});
+
+/* =========================================================
+   8. 黏土头像微视差
+   ========================================================= */
+(function avatar(){
+  const a = $('#avatar'); if(!a) return;
+  const stage = a.parentElement;
+  stage.addEventListener('pointermove', e=>{
+    const r = stage.getBoundingClientRect();
+    const px = (e.clientX - r.left)/r.width - .5;
+    const py = (e.clientY - r.top)/r.height - .5;
+    a.style.transform = `rotateY(${px*16}deg) rotateX(${-py*12}deg)`;
+  });
+  stage.addEventListener('pointerleave', ()=>{ a.style.transform=''; });
+})();
+
+/* =========================================================
+   9. 彩带庆祝
+   ========================================================= */
+function confetti(){
+  const cv = $('#confetti'); if(!cv || RM) return;
+  const ctx = cv.getContext('2d');
+  const DPR = Math.min(devicePixelRatio, 2);
+  cv.width = innerWidth*DPR; cv.height = innerHeight*DPR;
+  ctx.scale(DPR, DPR);
+  const colors = ['#6fd6bd','#ffb094','#b3a4f5','#ffd36e','#8ecdf5','#f1805f'];
+  const parts = [];
+  for (let i=0;i<140;i++){
+    parts.push({
+      x: innerWidth/2 + (Math.random()-.5)*260,
+      y: innerHeight/2 - 60,
+      vx: (Math.random()-.5)*13,
+      vy: -6 - Math.random()*10,
+      s: 6 + Math.random()*10,
+      rot: Math.random()*Math.PI,
+      vr: (Math.random()-.5)*.3,
+      c: colors[(Math.random()*colors.length)|0],
+      life: 1
+    });
+  }
+  let raf;
+  (function step(){
+    ctx.clearRect(0,0,innerWidth,innerHeight);
+    let alive = false;
+    parts.forEach(p=>{
+      p.vy += .42; p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+      p.vx *= .995;
+      if (p.y < innerHeight + 60) alive = true;
+      p.life -= .0035;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.globalAlpha = Math.max(p.life, 0);
+      ctx.fillStyle = p.c;
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(-p.s/2, -p.s/4, p.s, p.s/2, 3);
+      else ctx.rect(-p.s/2, -p.s/4, p.s, p.s/2);
+      ctx.fill();
+      ctx.restore();
+    });
+    if (alive) raf = requestAnimationFrame(step);
+    else ctx.clearRect(0,0,innerWidth,innerHeight);
+  })();
+}
+$('#sayHi').addEventListener('click', confetti);
+
+/* =========================================================
+   10. 表单
+   ========================================================= */
+(function form(){
+  const f=$('#frm'), out=$('#out'); if(!f) return;
+  f.addEventListener('submit',e=>{
+    e.preventDefault();
+    const n=$('#n').value.trim(), em=$('#e').value.trim(), m=$('#m').value.trim();
+    if(!n||!em||!m){ out.style.color='#f1805f'; out.textContent='三项都要填哦～'; return; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ out.style.color='#f1805f'; out.textContent='邮箱好像写错了？'; return; }
+    out.style.color='#3fae94';
+    out.textContent=`收到啦，${n}！我会尽快回你 💌`;
+    confetti();
+    f.reset();
+  });
+})();
+
+/* =========================================================
+   11. 日常：拍立得点击看大图
+   ========================================================= */
+(function lightbox(){
+  const lb=$('#lightbox'), img=$('#lbImg'), cap=$('#lbCap'), x=$('#lbX');
+  if(!lb || !img) return;
+  let lastFocus=null;
+  function open(src, alt, caption){
+    img.src=src; img.alt=alt||''; cap.textContent=caption||'';
+    lb.classList.add('open');
+    document.body.style.overflow='hidden';
+    x.focus();
+  }
+  function close(){
+    lb.classList.remove('open');
+    document.body.style.overflow='';
+    if(lastFocus) lastFocus.focus();
+    setTimeout(()=>{ if(!lb.classList.contains('open')){ img.removeAttribute('src'); } }, 420);
+  }
+  $$('.polaroid').forEach(p=>{
+    const im=$('img', p); if(!im) return;
+    const caption=($('.cap', p)||{}).textContent||'';
+    p.addEventListener('click', ()=>{ lastFocus=p; open(im.getAttribute('src'), im.alt, caption); });
+    p.addEventListener('keydown', e=>{
+      if(e.key==='Enter' || e.key===' '){ e.preventDefault(); p.click(); }
+    });
+  });
+  x.addEventListener('click', close);
+  lb.addEventListener('click', e=>{ if(e.target===lb) close(); });
+  addEventListener('keydown', e=>{ if(e.key==='Escape' && lb.classList.contains('open')) close(); });
+})();
+</script>
+</body>
+</html>
